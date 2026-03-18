@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gayathri V — Java Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"></noscript>
 <style>
 :root {
   --white: #fafaf8;
@@ -37,7 +40,7 @@ h1,h2,h3 { font-family: 'Cormorant Garamond', serif; }
 .loader-name { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--white); letter-spacing: 0.4em; text-transform: uppercase; animation: lpulse 1.5s ease infinite; }
 @keyframes lpulse { 0%,100%{opacity:.3} 50%{opacity:1} }
 .loader-bar { width: 180px; height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; }
-.loader-bar::after { content:''; display:block; width:100%; height:100%; background: var(--gold); transform: translateX(-100%); animation: lbar 1.4s ease 0.2s forwards; }
+.loader-bar::after { content:''; display:block; width:100%; height:100%; background: var(--gold); transform: translateX(-100%); animation: lbar 1s ease 0.1s forwards; }
 @keyframes lbar { to { transform: translateX(0); } }
 
 /* NAV */
@@ -299,14 +302,7 @@ footer { background:var(--ink); padding:36px 64px; display:flex; align-items:cen
     <div class="hr-bg"></div>
     <div class="hr-grid"></div>
     <div class="hr-inner">
-      <div class="hr-mono">GV</div>
-      <div class="hr-stats">
-        <div class="hstat"><div class="hstat-n">8.8</div><div class="hstat-l">MCA CGPA</div></div>
-        <div class="hstat"><div class="hstat-n">8.6</div><div class="hstat-l">B.Sc CGPA</div></div>
-        <div class="hstat"><div class="hstat-n">2</div><div class="hstat-l">Projects</div></div>
-        <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l">Certifications</div></div>
-      </div>
-      <div class="hr-badge"><div class="badge-dot"></div><div class="badge-txt">Open to Opportunities</div></div>
+      <div class="hr-mono" style="font-size:12rem;opacity:0.18;">GV</div>
     </div>
   </div>
 </section>
@@ -490,8 +486,17 @@ footer { background:var(--ink); padding:36px 64px; display:flex; align-items:cen
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Loader
-window.addEventListener('load',()=>{ setTimeout(()=>document.getElementById('loader').classList.add('done'),1600); });
+// Loader — dismisses quickly, never waits for external resources
+const loader = document.getElementById('loader');
+function dismissLoader() { if(loader) loader.classList.add('done'); }
+// Dismiss as soon as DOM is ready + short delay for animation
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => setTimeout(dismissLoader, 1200));
+} else {
+  setTimeout(dismissLoader, 800);
+}
+// Absolute hard fallback — 2.5s max no matter what
+setTimeout(dismissLoader, 2500);
 
 // Nav scroll
 const nav=document.getElementById('mainNav');
